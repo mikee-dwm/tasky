@@ -9,4 +9,8 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+  },
+  ssr: false,
 })
