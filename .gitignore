@@ -1,0 +1,25 @@
+# Nuxt
+.nuxt
+.output
+.data
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules
+.pnpm-debug.log*
+
+# Build
+dist
+
+# Logs
+logs
+*.log
+
+# OS
+.DS_Store
+
+# Playwright
+/test-results/
+/playwright-report/
