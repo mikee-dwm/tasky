@@ -28,29 +28,33 @@
       <TodoInput @add="(text: string) => addTodo(text, selectedCategoryId)" />
 
       <!-- Todo list -->
-      <div class="flex-1 overflow-y-auto px-6 py-4 space-y-2">
-        <div
-          v-if="filteredTodos.length === 0"
-          class="flex flex-col items-center justify-center h-48 text-gray-400"
-        >
-          <span class="text-4xl mb-3">{{ statusFilter === 'completed' ? '🎉' : '📋' }}</span>
-          <p class="text-sm">{{ emptyMessage }}</p>
-        </div>
+      <div class="flex-1 overflow-y-auto px-6 py-4">
+        <Transition name="fade" mode="out-in">
+          <div
+            v-if="filteredTodos.length === 0"
+            class="flex flex-col items-center justify-center h-48 text-gray-400"
+          >
+            <span class="text-4xl mb-3">{{ statusFilter === 'completed' ? '🎉' : '📋' }}</span>
+            <p class="text-sm">{{ emptyMessage }}</p>
+          </div>
 
-        <TodoItem
-          v-for="(todo, index) in filteredTodos"
-          :key="todo.id"
-          :todo="todo"
-          :category-name="selectedCategoryId === null ? categories.find(c => c.id === todo.categoryId)?.name : undefined"
-          :dragging="dragIndex === index"
-          @toggle="toggleTodo(todo.id)"
-          @delete="deleteTodo(todo.id)"
-          @edit="(text: string) => editTodo(todo.id, text)"
-          @dragstart="onDragStart(index)"
-          @dragover="onDragOver(index)"
-          @drop="onDrop"
-          @dragend="onDragEnd"
-        />
+          <TransitionGroup v-else name="todo" tag="div" class="space-y-2">
+            <TodoItem
+              v-for="(todo, index) in filteredTodos"
+              :key="todo.id"
+              :todo="todo"
+              :category-name="selectedCategoryId === null ? categories.find(c => c.id === todo.categoryId)?.name : undefined"
+              :dragging="dragIndex === index"
+              @toggle="toggleTodo(todo.id)"
+              @delete="deleteTodo(todo.id)"
+              @edit="(text: string) => editTodo(todo.id, text)"
+              @dragstart="onDragStart(index)"
+              @dragover="onDragOver(index)"
+              @drop="onDrop"
+              @dragend="onDragEnd"
+            />
+          </TransitionGroup>
+        </Transition>
       </div>
 
       <!-- Footer -->

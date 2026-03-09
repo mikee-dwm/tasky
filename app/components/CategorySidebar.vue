@@ -40,29 +40,31 @@
 
     <!-- Add category -->
     <div class="p-3 border-t border-gray-200">
-      <form v-if="adding" class="flex gap-2" @submit.prevent="submit">
-        <input
-          ref="inputRef"
-          v-model="name"
-          placeholder="Category name"
-          class="flex-1 text-sm px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
-          @keydown.escape="adding = false"
-        >
+      <Transition name="slide" mode="out-in">
+        <form v-if="adding" class="flex gap-2" @submit.prevent="submit">
+          <input
+            ref="inputRef"
+            v-model="name"
+            placeholder="Category name"
+            class="flex-1 text-sm px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            @keydown.escape="adding = false"
+          >
+          <button
+            type="submit"
+            class="text-sm px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+          >
+            Add
+          </button>
+        </form>
         <button
-          type="submit"
-          class="text-sm px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+          v-else
+          class="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+          @click="startAdding"
         >
-          Add
+          <span class="text-lg leading-none">+</span>
+          <span>New Category</span>
         </button>
-      </form>
-      <button
-        v-else
-        class="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-        @click="startAdding"
-      >
-        <span class="text-lg leading-none">+</span>
-        <span>New Category</span>
-      </button>
+      </Transition>
     </div>
   </aside>
 </template>
